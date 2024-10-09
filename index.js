@@ -24,6 +24,13 @@ app.use(cors(corsOptions)); // Use the CORS middleware
 app.use(express.json());
 app.use(cookieParser()); // Use cookie-parser middleware
 
+
+// Redirect root URL to Swagger UI
+app.get("/", (req, res) => {
+  res.redirect("/api-docs"); // Redirect to the Swagger UI
+});
+
+
 // Setup Swagger UI for API documentation
 app.use("/api-docs", swaggerUiExpress.serve, swaggerUiExpress.setup(apiDocs));
 
