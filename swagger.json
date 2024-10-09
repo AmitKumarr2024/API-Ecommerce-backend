@@ -345,7 +345,7 @@
       }
     },
     "/api/product/delete-product/{id}": {
-      "post": {
+      "delete": {
         "tags": ["Delete-Product "],
         "summary": "E-commerce product added in database ",
         "description": "All the new product is created by this Api ",
