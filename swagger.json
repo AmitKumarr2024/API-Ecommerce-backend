@@ -1,0 +1,379 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "API for E-commerce application",
+    "title": "E-commerce API"
+  },
+  "host": "localhost:7002",
+  "securityDefinitions": {
+    "JWT": {
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey"
+    }
+  },
+  "paths": {
+    "/api/user/signup": {
+      "post": {
+        "tags": ["SignUp"],
+        "summary": "User signup",
+        "description": "Create a new user account (admin or regular user)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UserSignup",
+            "description": "Details for user signup",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "mohan kumar"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "mohan@mohan.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "mohan@12345"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": ["admin", "user"],
+                  "example": "admin"
+                }
+              },
+              "required": ["name", "email", "password", "role"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully signed up, no content returned"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/user/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "User Login",
+        "description": "User to login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UserSignup",
+            "description": "Details for user signup",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "mohan@mohan.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "mohan@12345"
+                }
+              },
+              "required": ["email", "password"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully Login"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/user/all-user": {
+      "get": {
+        "tags": ["All user"],
+        "summary": "All User Output",
+        "description": "All User Output",
+        "security": [{ "JWT": {} }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+
+    "/api/user/one-user/{id}": {
+      "get": {
+        "tags": ["Single user"],
+        "summary": "Single User Output",
+        "description": "Retrieve a single user's details by their ID",
+        "security": [{ "JWT": {} }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Mohan Kumar"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "mohan@mohan.com"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": ["admin", "user"],
+                  "example": "admin"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+
+    "/api/user/delete/{id}": {
+      "delete": {
+        "tags": ["Delete user"],
+        "summary": "Delete User Output",
+        "description": "Delete User Output",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Delete successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": ["Logout user"],
+        "summary": "logout User ",
+        "description": "logout User Output",
+        "security": [{ "JWT": {} }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/product/create/{id}": {
+      "post": {
+        "tags": ["Product Create"],
+        "summary": "E-commerce product added in database ",
+        "description": "All the new product is created by this Api ",
+
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Product-create",
+            "description": "Details for product-create",
+
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Laptop"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": "10"
+                }
+              },
+              "required": ["name", "quantity"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product Created successfully in database"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/product/all-product": {
+      "get": {
+        "tags": ["All-Product "],
+        "summary": "E-commerce product added in database ",
+        "description": "All the new product is created by this Api ",
+
+        "responses": {
+          "201": {
+            "description": "Product fetch successfully from Database"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/product/update-product/{id}": {
+      "post": {
+        "tags": ["Update-Product "],
+        "summary": "E-commerce product added in database ",
+        "description": "All the new product is created by this Api ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Product-create",
+            "description": "Details for product-create",
+
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Laptop"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": "10"
+                }
+              },
+              "required": ["name", "quantity"]
+            }
+          }
+        ],
+
+        "responses": {
+          "201": {
+            "description": "Product Updated successfully in Database"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/product/delete-product/{id}": {
+      "post": {
+        "tags": ["Delete-Product "],
+        "summary": "E-commerce product added in database ",
+        "description": "All the new product is created by this Api ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "201": {
+            "description": "Product Deleted successfully From Database"
+          },
+          "400": {
+            "description": "Bad request, invalid data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
