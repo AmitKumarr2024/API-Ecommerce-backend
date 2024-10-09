@@ -25,3 +25,6 @@ This is an API for an E-commerce application that allows users to sign up, log i
 - Node.js
 - MongoDB
 
+## API LINK
+https://api-ecommerce-backend-ds4y.onrender.com/api-docs/ 
+
