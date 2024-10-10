@@ -5,7 +5,7 @@
     "description": "API for E-commerce application",
     "title": "E-commerce API"
   },
-  "host": "localhost:7002",
+  "host": "https://api-ecommerce-backend-ds4y.onrender.com/",
   "securityDefinitions": {
     "JWT": {
       "in": "header",
